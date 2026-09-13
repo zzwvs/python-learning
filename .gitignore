@@ -1,0 +1,21 @@
+# ===== Python 运行产物（不该进仓库）=====
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# ===== 虚拟环境（最重要！几百 MB，提交上去会被 GitHub 拒绝）=====
+.venv/
+venv/
+env/
+
+# ===== 编辑器 / IDE 的本地配置（只对你自己的机器有意义）=====
+.idea/
+.vscode/
+
+# ===== Windows 系统文件 =====
+Thumbs.db
+desktop.ini
+
+# ===== 临时文件与日志 =====
+*.log
+*.tmp

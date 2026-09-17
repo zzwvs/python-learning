@@ -1015,6 +1015,7 @@ __del__并不是“所有实例方法执行完后的收尾工作”,而是“对
 """
 super()就是严格按照这个顺序调用"下一个"类的方法
 """
+"""
 class a:
     def __init__(self):
         print("a init")
@@ -1043,8 +1044,29 @@ class D(C,B):       # MRO 的顺序是D　Ｂ　Ａ　Ｃ　ａ　；如果是�
         super().__init__()
         
 d = D()
+"""
 
+"""
+静态方法:写在类里，但跟类、跟实例都没啥关系的方法；只是“逻辑上属于这个类”
+没有 self
+没有 cls
+本质就是一个普通函数
+"""
 
+"""
+单例模式:确保一个类在整个程序运行期间，只存在一个实例对象。
+"""
+# 装饰器写法
+def singleton(cls):
+    instances = {}      # 是一个字典,充当缓存,用来保存已经创建过的实例,值是该类的实例对象
+    def wrapper(*args, **kwargs):
+        if cls not in instances:
+            instances[cls] = cls(*args, **kwargs)
+        return instances[cls]
+    return wrapper
 
-
+@singleton
+class Config:
+    def __init__(self):
+        self.settings = {}
 

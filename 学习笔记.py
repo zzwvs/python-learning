@@ -1046,27 +1046,103 @@ class D(C,B):       # MRO 的顺序是D　Ｂ　Ａ　Ｃ　ａ　；如果是�
 d = D()
 """
 
+
+# 3.1多态
+# 含义:一个对象具有多种形态,在不同的使用环境中以不同的形态展示其功能,那我们就称该对象具有多态特征
+# 前提:继承
+# 特点:1.不关注对象的类型,只关注对象具有的行为
+#      2.可以增加代码的外部调用的灵活度
+#      3.不同的子类对象调用相同的父类方法,会产生不同的执行结果
+# class Animal:
+#     """父类:动物类"""
+#     def sound(self):
+#         print('叫声')
+# class Cat(Animal):
+#     """子类1:猫"""
+#     def sound(self):
+#         print('喵喵喵')
+# class Dog(Animal):
+#     """子类2:狗"""
+#     def sound(self):
+#         print('汪汪汪')
+
+# dog = Dog()
+# cat =Cat()
+
+# dog.sound()
+# cat.sound()
+
+# 3.2多态性:定义一个统一的接口(函数),一种调用方式,不同的执行结果
+class Graphics:
+    """父类:图形"""
+    def area(self):
+        print('该图形面积为:')
+    def perimeter(self):
+        print('该图形的周长为:')
+class Rectangle(Graphics):
+    """子类1:矩形"""
+    def __init__(self,long,wide):
+        self.long = long
+        self.wide = wide
+    def area(self):
+        super().area()      # super()保留父类的打印前缀,具有多态的扩展特征
+        return self.long * self.wide
+    def perimeter(self):
+        super().perimeter()
+        return 2*(self.long + self.wide)
+class Circle(Graphics):
+    """子类2:圆形"""
+    def __init__(self,radius):
+        self.radius =radius
+    def area(self):
+        super().area()
+        return self.radius*3.14
+    def perimeter(self):
+        super().perimeter()
+        return 2*3.14*self.radius
+
+# 不同对象,相同调用,不同结果
+r = Rectangle(5,4)
+c = Circle(3)
+
+def show_graphics_info(obj:Graphics):
+    """
+    obj:Graphics是python的类型注解,主要用于表达多态的接口约束
+    传入的不是Graphics类及其子类时,运行不会报错
+    作用:IDE在输入 obj. 时会自动提示Graphics类的方法,减少出错
+    """
+    """统一的调用方式"""
+    print(f"面积为:{obj.area()}")
+    print(f"周长为:{obj.perimeter()}")
+
+print("---矩形---")
+show_graphics_info(r)
+print("---圆形---")
+show_graphics_info(c)
+
 """
 静态方法:写在类里，但跟类、跟实例都没啥关系的方法；只是“逻辑上属于这个类”
 没有 self
 没有 cls
 本质就是一个普通函数
+不需要访问实例属性和类属性
+如果要访问类属性,通过类名.类属性名访问,不能访问实例属性
 """
 
 """
 单例模式:确保一个类在整个程序运行期间，只存在一个实例对象。
 """
 # 装饰器写法
-def singleton(cls):
-    instances = {}      # 是一个字典,充当缓存,用来保存已经创建过的实例,值是该类的实例对象
-    def wrapper(*args, **kwargs):
-        if cls not in instances:
-            instances[cls] = cls(*args, **kwargs)
-        return instances[cls]
-    return wrapper
+# def singleton(cls):
+#     instances = {}      # 是一个字典,充当缓存,用来保存已经创建过的实例,值是该类的实例对象
+#     def wrapper(*args, **kwargs):
+#         if cls not in instances:
+#             instances[cls] = cls(*args, **kwargs)
+#         return instances[cls]
+#     return wrapper
 
-@singleton
-class Config:
-    def __init__(self):
-        self.settings = {}
+# @singleton
+# class Config:
+#     def __init__(self):
+#         self.settings = {}
 

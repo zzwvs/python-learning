@@ -1,6 +1,3 @@
-
-# """"
-
 class Shape:    # 形状
     def __init__(self,name):
         self.name = name
@@ -91,7 +88,7 @@ class Shape:    # 形状（父类）
     def __init__(self, name):
         self.name = name
         
-    def area(self):      # 加上 self
+    def area(self):
         return 0
     
     def perimeter(self):
@@ -117,13 +114,13 @@ class Circle(Shape):    # 圆形（子类）
         self.radius = radius
     
     def area(self):
-        return 3.14 * self.radius ** 2  # 修复：加上平方
+        return 3.14 * self.radius ** 2
     
     def perimeter(self):
         return 3.14 * 2 * self.radius
 
 
-# ✅ 核心：万能打印机（多态的体现）
+# 核心：万能打印机（多态的体现）
 # 它不关心具体是矩形还是圆，只要传进来的东西有 area() 和 perimeter() 方法就能用
 def print_shape_info(shape):
     print(f'--- {shape.name} ---')
@@ -131,7 +128,7 @@ def print_shape_info(shape):
     print(f'周长为: {shape.perimeter()}')
 
 
-# ✅ 用户交互部分（简化版）
+# 用户交互部分（简化版）
 def main():
     while True:
         choice = input('计算矩形(1)还是圆形(2)？输入q退出：').strip()
@@ -152,5 +149,4 @@ def main():
 if __name__ == '__main__':
     main()
 
-# ✅ 挑战：打印 MRO（方法解析顺序）
 print("Rectangle 的方法查找顺序是：", Rectangle.__mro__)

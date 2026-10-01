@@ -1334,3 +1334,46 @@ m.A(3,3)
 """
 文件读写
 """
+'''
+基础操作
+'''
+# 文件操作：文件对象的方法
+# 1.open()      创建一个file(文件)对象，默认是只读模式打开
+# read(n)       n表示从文件中数据读取的长度、没有传n值就默认一次性读取文件的所有内容
+# write()       将指定内容写入文件
+# close()       关闭文件
+# 文件属性
+# 1.文件名.name     返回要打开的文件的文件名，可以包含文件的具体路径
+# 2.文件名.mode     返回文件的访问模式
+# 3.文件名.closed   检测文件是否被关闭,关闭返回Turn,未关闭返回False
+# f = open('test.txt',encoding="UTF-8")   # encoding="UTF-8"(文件编码方式),没要写绝对路径默认在同文件夹下寻找
+g = open('D:\\zzw_keli\\Documents\\工作区\\学生手册_OCR.md',encoding="UTF-8")
+# print(f.name)
+# print(f.mode)   # 返回r,只读模式
+# print(f.closed) # 返回False,文件还未关闭
+# f.close()
+# print(f.closed) # 返回True,文件已关闭
+# 读写操作
+# read(n)
+# print(f.read())
+# f.close()
+# try:
+#     print(g.read())
+# except Exception as e:
+#     print(e)
+#     g.close()
+'''readline()'''
+for _ in range(5):     # 读取4行内容
+    print(g.readline())    # 只读一行内容,方法执行完会把文件指针移到下一行
+_ = 0   # 初始化行数
+while True:
+    m = g.readline()
+    if not m:
+        print(f"一共有{_}行内容")
+        break
+    else:
+        print(m)
+        _ = _ + 1
+g.close()
+'''readlines'''
+# 按照行的方式一次性读取全部内容,返回一个列表,每一行的数据就是列表的一个元素

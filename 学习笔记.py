@@ -1347,7 +1347,7 @@ m.A(3,3)
 # 2.文件名.mode     返回文件的访问模式
 # 3.文件名.closed   检测文件是否被关闭,关闭返回Turn,未关闭返回False
 # f = open('test.txt',encoding="UTF-8")   # encoding="UTF-8"(文件编码方式),没要写绝对路径默认在同文件夹下寻找
-g = open('D:\\zzw_keli\\Documents\\工作区\\学生手册_OCR.md',encoding="UTF-8")
+# g = open('D:\\zzw_keli\\Documents\\工作区\\学生手册_OCR.md',encoding="UTF-8")
 # print(f.name)
 # print(f.mode)   # 返回r,只读模式
 # print(f.closed) # 返回False,文件还未关闭
@@ -1363,17 +1363,62 @@ g = open('D:\\zzw_keli\\Documents\\工作区\\学生手册_OCR.md',encoding="UTF
 #     print(e)
 #     g.close()
 '''readline()'''
-for _ in range(5):     # 读取4行内容
-    print(g.readline())    # 只读一行内容,方法执行完会把文件指针移到下一行
-_ = 0   # 初始化行数
-while True:
-    m = g.readline()
-    if not m:
-        print(f"一共有{_}行内容")
-        break
-    else:
-        print(m)
-        _ = _ + 1
-g.close()
+# for _ in range(5):     # 读取4行内容
+#     print(g.readline())    # 只读一行内容,方法执行完会把文件指针移到下一行
+# _ = 0   # 初始化行数
+# while True:
+#     m = g.readline()
+#     if not m:
+#         print(f"一共有{_}行内容")
+#         break
+#     else:
+#         print(m)
+#         _ = _ + 1
+# g.close()
 '''readlines'''
 # 按照行的方式一次性读取全部内容,返回一个列表,每一行的数据就是列表的一个元素
+# f = open("test.txt",encoding="UTF-8")
+# test = f.readlines()
+# print(test)     # 输出列表后面都有\n换行
+# for i in test:
+#     print(i)
+# f.close()
+'''write    &    访问模式'''
+# file = open('test.txt','a',encoding="UTF-8")
+# # r 只读模式,默认(文件必须存在)  w 只写模式(文件存在则清空内容再写入内容，不存在就创建新文件)
+# # r+ 可读写文件,文件不存在就会报错  w+ 先写再读,文件存在就重新编辑,不存在就创建新文件
+# # a 追加模式,不存在就创建新文件进行写入,存在则在原有内容的基础上添加新的内容
+# # a+ 在a的基础上加入了可读功能
+# file.write("\n正在写入文件。。。")
+# # print(file.raed())
+# file.close()
+'''
+文件指针:标记重那个文字开始读取数据
+文件的定位操作
+'''
+f = open("test.txt",'w+',encoding="UTF-8")
+f.write("hello python")
+# print(f.read())
+
+# w+ 读出的内容是空白的
+# 读取方式有两种
+# 1.更改访问模式
+# f = open("test.txt",'a')
+# print(f.read())
+# f.close()
+# 2.文件定位操作
+# tell()和seek()
+# tell()  显示文件内当前位置,即文件指针当前位置
+# seek(offset,whence)  移动文件读取指针到指定位置
+# offset:偏移量,表示要移动的字节数
+# whrnce:起始位置,表示移动字节的参考位置,默认值是0,0代表文件开头作为参考位置,1代表当前位置作为参考位置
+#                                               2代表文件结尾作为参考位置
+# seek(0,0) 表示把文件指针移到文件开头
+pos = f.tell()
+print(f"当前文件指针所在位置:{pos}")
+print(f"输出结果:{f.read()}")       # read() 只读取当前指针后面的数据,这里输出为空白
+f.seek(0,0)     # 将文件指针移动到开头
+pos = f.tell()
+print(f"当前文件指针所在位置:{pos}")
+print(f"输出结果:{f.read()}")       # 改变指针的位置后就可以输出内容了
+f.close()

@@ -1363,7 +1363,7 @@ m.A(3,3)
 #     print(e)
 #     g.close()
 '''readline()'''
-# for _ in range(5):     # 读取4行内容
+# for _ in range(4):     # 读取4行内容
 #     print(g.readline())    # 只读一行内容,方法执行完会把文件指针移到下一行
 # _ = 0   # 初始化行数
 # while True:
@@ -1392,12 +1392,13 @@ m.A(3,3)
 # file.write("\n正在写入文件。。。")
 # # print(file.raed())
 # file.close()
+'''一般不会使用r+/w+/a+,因为会加大性能损耗'''
 '''
 文件指针:标记重那个文字开始读取数据
 文件的定位操作
 '''
-f = open("test.txt",'w+',encoding="UTF-8")
-f.write("hello python")
+# f = open("test.txt",'w+',encoding="UTF-8")
+# f.write("hello python")
 # print(f.read())
 
 # w+ 读出的内容是空白的
@@ -1414,11 +1415,40 @@ f.write("hello python")
 # whrnce:起始位置,表示移动字节的参考位置,默认值是0,0代表文件开头作为参考位置,1代表当前位置作为参考位置
 #                                               2代表文件结尾作为参考位置
 # seek(0,0) 表示把文件指针移到文件开头
-pos = f.tell()
-print(f"当前文件指针所在位置:{pos}")
-print(f"输出结果:{f.read()}")       # read() 只读取当前指针后面的数据,这里输出为空白
-f.seek(0,0)     # 将文件指针移动到开头
-pos = f.tell()
-print(f"当前文件指针所在位置:{pos}")
-print(f"输出结果:{f.read()}")       # 改变指针的位置后就可以输出内容了
-f.close()
+# pos = f.tell()
+# print(f"当前文件指针所在位置:{pos}")
+# print(f"输出结果:{f.read()}")       # read() 只读取当前指针后面的数据,这里输出为空白
+# f.seek(0,0)     # 将文件指针移动到开头
+# pos = f.tell()
+# print(f"当前文件指针所在位置:{pos}")
+# print(f"输出结果:{f.read()}")       # 改变指针的位置后就可以输出内容了
+# f.close()
+
+'''with open()语句的使用'''
+# 比普通模式安全且高效,自动管理上下文,无论是否报错自动关闭文件
+# 语法格式如下:
+# with open("test.txt","w",encoding="utf-8") as f:
+#     for _ in range(10):
+#         f.write(f"{_+1}.\n")
+# with open("test.txt","r",encoding="utf-8") as f:
+#     t = f.read()
+# print(t)
+
+"""读取二进制文件"""
+# 前面加上r防止构成转义字符
+# 读取图片
+# 前面加个b就可以读取二进制文件
+with open(r"G:\浏览器下载\纳西妲.jfif","rb") as f:
+    file = f.read()
+    print(file)
+
+# 将图片写入到当前文件夹
+with open(r"D:\code\纳西妲.jfif","wb") as f:
+    f.write(file)
+
+
+"""
+OS模块教学
+参考文件:OS模块.py
+"""
+

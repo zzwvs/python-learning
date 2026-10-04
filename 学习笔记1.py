@@ -1438,12 +1438,12 @@ m.A(3,3)
 # 前面加上r防止构成转义字符
 # 读取图片
 # 前面加个b就可以读取二进制文件
-with open(r"G:\浏览器下载\纳西妲.jfif","rb") as f:
+with open(r"G:\浏览器下载\纳西妲.jfif","rb") as f:  # 不需要转utf-8
     file = f.read()
     print(file)
 
 # 将图片写入到当前文件夹
-with open(r"D:\code\纳西妲.jfif","wb") as f:
+with open(r"D:\code\纳西妲.jfif","wb") as f:  # 不需要转utf-8
     f.write(file)
 
 

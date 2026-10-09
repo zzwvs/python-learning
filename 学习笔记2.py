@@ -155,7 +155,7 @@ import time
 
 '''
 多线程
-1.线程：资源cpu调度的基本单位，每一个进程至少都会有一个线程，这个线程通常就是我们所说的主线程
+1.线程：资源cpu调度的基本单位,每一个进程至少都会有一个线程,这个线程通常就是我们所说的主线程
 2.进程：是资源赵作系统进行资源分配的基本单位，每打开一个程序至少就会有一个进程
 一个进程默认有一个线程，进程里面可以创建多个线程，线程是可以依附在进程里面的，没有进程就没有线程
 '''
@@ -208,24 +208,169 @@ if __name__ == "__main__":
 1.线程之间共享资源
 '''
 # 1
-li = [] # 全局变量
-# 写入数据
-def wdata():
-    for i in range(5):
-        li.append(i)
-        time.sleep(0.2) # 循环5次就是1秒
-    print("写入数据:",li)
-# 读取数据
-def rdata():
-    print("读取的数据是",li)
+# li = [] # 全局变量
+# # 写入数据
+# def wdata():
+#     for i in range(5):
+#         li.append(i)
+#         time.sleep(0.2) # 循环5次就是1秒
+#     print("写入数据:",li)
+# # 读取数据
+# def rdata():
+#     print("读取的数据是",li)
+# if __name__ == "__main__":
+#     # 创建子线程
+#     t1 = threading.Thread(target=wdata)
+#     t2 = threading.Thread(target=rdata)
+#     # 开启子线程
+#     t1.start()
+#     # 阻塞线程
+#     t1.join() # 加了join()就会等待t1任务执行结束
+#     # time.sleep(1) 不阻塞线程,等待的时间要和上面的216行匹配
+#     t2.start()
+#     t2.join
+'''
+2.资源竞争
+'''
+# a = 0 # 全局变量
+# b = 1000000 # 循环次数
+# def add():
+#     global a
+#     for i in range(b):
+#         a += 1
+#     print("add:",a)
+
+# def add2():
+#     global a
+#     for i in range(b):
+#         a += 1
+#     print("add2:",a)
+# # add() # 1000000
+# # add2() # 2000000
+
+# if __name__ == "__main__":
+#     f1 = threading.Thread(target=add)
+#     f2 = threading.Thread(target=add2)
+#     f1.start() # 完全随机,两个线程竞争同一个局部变量
+#     f2.start()
+
+'''
+3.线程同步
+'''
+# 1.join线程阻塞
+
+# a = 0
+# b = 1000000
+# def add():
+#     global a
+#     for i in range(b):
+#         a += 1
+#     print("add:",a)
+
+# def add2():
+#     global a
+#     for i in range(b):
+#         a += 1
+#     print("add2:",a)
+
+# if __name__ == "__main__":
+#     f1 = threading.Thread(target=add)
+#     f2 = threading.Thread(target=add2)
+#     f1.start()
+#     f1.join() # 等待第一个子线程执行完后再执行下一个子线程
+#     f2.start()
+
+# 2互斥锁:对共享数据进行锁定,保证多个线程访问共享数据不会出现数据错误问题:保证同一时刻只能有一个线程去操作
+# acquire():上锁
+# release():释放锁
+# 这两个方法必须成对出现
+
+from threading import Thread,Lock # 导入模块
+
+# 2创建互斥锁
+# lock = Lock()
+
+# a = 0
+# b = 1000000
+# def add():
+#     lock.acquire() # 上锁
+#     global a
+#     for i in range(b):
+#         a += 1
+#     print("add:",a)
+#     lock.release() # 解锁
+
+# def add2():
+#     lock.acquire() # 上锁
+#     global a
+#     for i in range(b):
+#         a += 1
+#     print("add2:",a)
+#     lock.release() # 解锁
+
+
+# if __name__ == "__main__":
+#     f1 = threading.Thread(target=add)
+#     f2 = threading.Thread(target=add2)
+#     f1.start()
+#     # f1.join()
+#     f2.start()
+
+# 互斥锁是多个线程一起争夺,抢到锁先执行
+
+
+
+"""
+进程:是操作系统进行资源分配和调度的基本单位,是操作系统结构的基础
+一个正在进程的程序或软件就是一个进程
+进程里面可以创建多个线程,一个进程至少有一个线程
+"""
+
+'''
+1.进程的状态
+就绪状态:运行的条件满足,正在等待CPU执行
+执行状态:CPU正在执行其功能
+等待(阻塞)状态:等待某些条件满足(程序未响应等等)
+'''
+
+'''
+进程语法结构
+'''
+from multiprocessing import Process # 提供了Process类代表进程对象
+
+# Process 类参数
+# 1.target:执行的目标任务名,即子进程要执行的对象
+# 2.args:以元组的形式传参
+# 3.kwargs:以字典的形式传参
+# 4.name:给子进程设置名字
+
+# Process 方法
+# 1.start():开启子进程
+# 2.is_alive():判断子进程是否还活着,存活返回Turn,否则返回Flash
+# 3.join():主进程等待子进程执行结束
+
+# Process 属性
+# name:当前进程的别名,默认为Process-N
+# pid:当前进程的进程编号
+
+def A():
+    print(111)
+def B():
+    print(222)
+    
 if __name__ == "__main__":
-    # 创建子线程
-    t1 = threading.Thread(target=wdata)
-    t2 = threading.Thread(target=rdata)
-    # 开启子线程
-    t1.start()
-    # 阻塞线程
-    t1.join() # 加了join()就会等待t1任务执行结束
-    # time.sleep(1) 不阻塞线程,等待的时间要和上面的216行匹配
-    t2.start()
-    t2.join
+    # 创建子进程
+    p1 = Process(target=A,name="a") # 可以给子进程命名
+    p2 = Process(target=B)
+    # 开始子进程
+    p1.start()
+    p2.start()
+    print("p1:",p1.name)
+    print("p1:",p2.name)
+    
+    
+    
+    
+    
+    
+    

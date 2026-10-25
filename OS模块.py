@@ -8,7 +8,7 @@ os.rename("小吉祥草王.png",r"D:\code\图片\纳西妲.png")
 """删除文件"""
 '''与普通删除不同,一旦删除无法恢复,不能Ctrl+Z回来'''
 # os.rename(filepath:str) -> None
-os.rename("实验.txt")
+os.remove("实验.txt")
 
 """创建文件夹"""
 # os.mkdir(dirpath:str) -> None

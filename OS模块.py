@@ -54,7 +54,7 @@ for file in os.listdir(r"G:\浏览器下载"):
 
 """判断路径是否存在"""
 # os.path.exists(filepath:str) -> bool
-os.path.exists()
+os.path.exists()    # 常用于判断文件是否重名
 # 存在返回True
 
 """获取文件大小"""

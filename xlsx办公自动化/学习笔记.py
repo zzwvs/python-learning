@@ -259,7 +259,30 @@ def char(cell:str):
 print(ws.cell(2,1).row,ws3.cell(2,1).column) # 返回 1 A
 
 
+"""
+单元格的写入
+"""
+wb = openpyxl.load_workbook("期末成绩表.xlsx")
+ws = wb.worksheets[0]
 
+data = ws["C2:H12"]
+
+data_list = [[cell.value for cell in row] for row in data]
+
+data_sum = []
+for row in data_list:
+    try:
+        data_sum.append(sum(row))
+    except TypeError:
+        continue
+
+rows = 3
+for va in data_sum:
+    ws.cell(rows,9,va) # 写入单元格 cell(row,column,写入的值)
+    # 第二种方法：ws["C9"] = 写入的值
+    rows += 1
+
+wb.save("期末成绩表.xlsx")
 
 
 
